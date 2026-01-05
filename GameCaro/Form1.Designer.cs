@@ -47,10 +47,10 @@
             // 
             // pnlChessBoard
             // 
-            this.pnlChessBoard.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pnlChessBoard.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.pnlChessBoard.Location = new System.Drawing.Point(12, 12);
             this.pnlChessBoard.Name = "pnlChessBoard";
-            this.pnlChessBoard.Size = new System.Drawing.Size(711, 522);
+            this.pnlChessBoard.Size = new System.Drawing.Size(815, 638);
             this.pnlChessBoard.TabIndex = 0;
             // 
             // panel2
@@ -58,9 +58,9 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.pctbAvatar);
-            this.panel2.Location = new System.Drawing.Point(729, 12);
+            this.panel2.Location = new System.Drawing.Point(837, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(269, 269);
+            this.panel2.Size = new System.Drawing.Size(269, 382);
             this.panel2.TabIndex = 1;
             // 
             // pctbAvatar
@@ -86,7 +86,7 @@
             this.panel3.Controls.Add(this.pctbMark);
             this.panel3.Controls.Add(this.prcbCoolDown);
             this.panel3.Controls.Add(this.txbPlayerName);
-            this.panel3.Location = new System.Drawing.Point(729, 287);
+            this.panel3.Location = new System.Drawing.Point(837, 287);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(269, 247);
             this.panel3.TabIndex = 2;
@@ -108,7 +108,7 @@
             this.binLAN.Name = "binLAN";
             this.binLAN.Size = new System.Drawing.Size(126, 23);
             this.binLAN.TabIndex = 4;
-            this.binLAN.Text = "button1";
+            this.binLAN.Text = "LAN";
             this.binLAN.UseVisualStyleBackColor = true;
             this.binLAN.Click += new System.EventHandler(this.binLAN_Click);
             // 
@@ -118,6 +118,7 @@
             this.txbIP.Name = "txbIP";
             this.txbIP.Size = new System.Drawing.Size(126, 22);
             this.txbIP.TabIndex = 3;
+            this.txbIP.Text = "127.0.0.1";
             // 
             // pctbMark
             // 
@@ -139,6 +140,7 @@
             // 
             this.txbPlayerName.Location = new System.Drawing.Point(3, 9);
             this.txbPlayerName.Name = "txbPlayerName";
+            this.txbPlayerName.ReadOnly = true;
             this.txbPlayerName.Size = new System.Drawing.Size(126, 22);
             this.txbPlayerName.TabIndex = 0;
             // 
@@ -146,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 555);
+            this.ClientSize = new System.Drawing.Size(1120, 668);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnlChessBoard);
