@@ -79,7 +79,7 @@
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panel3.BackColor = System.Drawing.SystemColors.Control;
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.binLAN);
             this.panel3.Controls.Add(this.txbIP);
@@ -122,10 +122,11 @@
             // 
             // pctbMark
             // 
-            this.pctbMark.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pctbMark.BackColor = System.Drawing.SystemColors.Control;
             this.pctbMark.Location = new System.Drawing.Point(135, 9);
             this.pctbMark.Name = "pctbMark";
             this.pctbMark.Size = new System.Drawing.Size(131, 120);
+            this.pctbMark.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctbMark.TabIndex = 2;
             this.pctbMark.TabStop = false;
             // 

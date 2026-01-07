@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Media;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,39 +21,56 @@ namespace GameCaro
             get { return chessBoard; }
             set { chessBoard = value; }
         }
-		
 
-		//tạo 1 mảng player
-		//private List<Player> player;
-
-		//public List<Player> Player
-		//{
-		//    get { return player; }
-		//    set { player = value; }
-		//}
-		//// lưu người dnash
-		//private int currenPlayer;
-		//public int CurrenPlayer
-		//{
-		//    get { return currenPlayer; }
-		//    set { currenPlayer = value; }
-
-		//}
-
-		#endregion
-
-		#region Initialize
-		public ChessBoardManager(Panel chessBoard)
+        //tạo 1 mảng player
+        private List<Player> player;
+        public List<Player> Player 
+        { 
+            get => player; 
+            set => player = value; 
+        }
+        //// lưu người đánh
+        private int currenPlayer;
+        public int CurrenPlayer
         {
-            //thêm tính năng cho phép thay đôit ten người chơi
+            get { return currenPlayer; }
+            set { currenPlayer = value; }
+        }
+
+        private TextBox playerName;
+        
+        private TextBox playerName1;
+        public TextBox PlayerName 
+        { 
+            get => playerName1; 
+            set => playerName1 = value; 
+        }
+
+        private PictureBox playerMark;
+        public PictureBox PlayerMark 
+        { 
+            get => playerMark; 
+            set => playerMark = value; 
+        }
+        #endregion
+
+        #region Initialize
+        public ChessBoardManager(Panel chessBoard, TextBox playerName, PictureBox mark) 
+        {
+            //thêm tính năng cho phép thay đôi ten người chơi
             this.ChessBoard = chessBoard;
-            //this.Player = new List<Player>()
-            //{
-            //    new Player("O", Image.FromFile((Application.StartupPath+ "\\Resources\\O_caro.png"))),
-            //    new Player("X" , Image.FromFile((Application.StartupPath+ "\\Resources\\X_caro.png")))
+            this.PlayerName = playerName;
+            this.PlayerMark = mark;
+
+            this.Player = new List<Player>() // phat trien tinh nhan cho phep them nguoi choi, cho phep thay doi ki tu nguoi choi
+            {
+                new Player("Người chơi O", Image.FromFile((Application.StartupPath+ "\\Resources\\O_caro1.png"))),
+                new Player("Người chơi X" , Image.FromFile((Application.StartupPath+ "\\Resources\\X_caro1.png")))
                
-            //};
-            //CurrenPlayer = 0;
+            };
+            currenPlayer = 0;
+
+            ChainPlayer();
         }
         #endregion
 
@@ -71,7 +89,9 @@ namespace GameCaro
                         Location = new Point(oldButton.Location.X + oldButton.Width, oldButton.Location.Y),
                         BackgroundImageLayout = ImageLayout.Stretch // fit ảnh
                     };
+                    
                     btn.Click += btn_Click;
+                    
                     ChessBoard.Controls.Add(btn);
 
                     oldButton = btn;
@@ -85,13 +105,26 @@ namespace GameCaro
         {
             Button btn = sender as Button;
 
-            // đỏi ảnh 
-            btn.BackgroundImage = Image.FromFile((Application.StartupPath + "\\Resources\\X_caro.png"));
-            //btn.BackgroundImage = Player[CurrenPlayer].Mark;
-
-            //CurrenPlayer = CurrenPlayer == 1 ? 0 : 1;
-            #endregion
-
+            if (btn.BackgroundImage != null)
+                return;
+            Mark(btn);
+            
+            ChainPlayer();
         }
+
+        // đổi ảnh X vs O theo player
+        private void Mark(Button btn)
+        {
+            btn.BackgroundImage = Player[CurrenPlayer].Mark;
+
+            currenPlayer = currenPlayer == 1 ? 0 : 1;
+        }
+        private void ChainPlayer()
+        {
+            PlayerName.Text = Player[currenPlayer].Name;
+
+            PlayerMark.Image = Player[currenPlayer].Mark;
+        }
+        #endregion
     }
 }

@@ -63,9 +63,29 @@ namespace GameCaro.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap O_caro {
+            get {
+                object obj = ResourceManager.GetObject("O_caro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap picBig {
             get {
                 object obj = ResourceManager.GetObject("picBig", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap X_caro {
+            get {
+                object obj = ResourceManager.GetObject("X_caro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
