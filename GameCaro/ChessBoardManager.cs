@@ -137,7 +137,7 @@ namespace GameCaro
         {
             return isEndHorizontal(btn)||isEndVerical(btn)||isEndPrimary(btn)||isEndSub(btn);
         }
-
+        //lay tọa độ burtton 
         private Point GetChessPoint(Button btn)
         {
            
@@ -208,13 +208,73 @@ namespace GameCaro
 
 			return countTop + countBottom == 5;
 		}
+        //hàng cheod
 		private bool isEndPrimary(Button btn)
 		{
-			return false;
+			Point point = GetChessPoint(btn);
+
+			int countTop = 0;
+			for (int i = 0 ; i <= point.X; i++)
+			{
+                if (point.X - i < 0 || point.Y - i < 0) //kiem tra có tràn khỏi mảng
+                    break;
+
+				if (Matrix[point.Y-i][point.X-i].BackgroundImage == btn.BackgroundImage)
+				{
+					countTop++;
+				}
+				else
+					break;
+			}
+
+			int countBottom = 0;
+			for (int i = 1 ; i <= Cons.CHEST_BOARD_WIDTH - point.X ; i++)
+			{
+                if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X+ i >= Cons.CHEST_BOARD_WIDTH) //kiem tra có tràn khỏi mảng
+                    break;
+				if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
+				{
+					countBottom++;
+				}
+				else
+					break;
+			}
+
+			return countTop + countBottom == 5;
 		}
+        //cheophu
 		private bool isEndSub(Button btn)
 		{
-			return false;
+			Point point = GetChessPoint(btn);
+
+			int countTop = 0;
+			for (int i = 0; i <= point.X; i++)
+			{
+				if (point.X - i > Cons.CHEST_BOARD_WIDTH || point.Y - i < 0) //kiem tra có tràn khỏi mảng
+					break;
+
+				if (Matrix[point.Y - i][point.X + i].BackgroundImage == btn.BackgroundImage)
+				{
+					countTop++;
+				}
+				else
+					break;
+			}
+
+			int countBottom = 0;
+			for (int i = 1; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
+			{
+				if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X + i < 0) //kiem tra có tràn khỏi mảng
+					break;
+				if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
+				{
+					countBottom++;
+				}
+				else
+					break;
+			}
+
+			return countTop + countBottom == 5;
 		}
 
 
