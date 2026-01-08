@@ -21,20 +21,5 @@ namespace GameCaro
             ChessBoard = new ChessBoardManager(pnlChessBoard, txbPlayerName, pctbMark);
             ChessBoard.DrawChessBoard();
         }
-          
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void binLAN_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

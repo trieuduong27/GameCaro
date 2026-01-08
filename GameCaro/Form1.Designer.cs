@@ -74,7 +74,6 @@
             this.pctbAvatar.Size = new System.Drawing.Size(266, 266);
             this.pctbAvatar.TabIndex = 0;
             this.pctbAvatar.TabStop = false;
-            this.pctbAvatar.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // panel3
             // 
@@ -100,7 +99,6 @@
             this.label1.Size = new System.Drawing.Size(219, 30);
             this.label1.TabIndex = 5;
             this.label1.Text = "5 in a line to win";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // binLAN
             // 
@@ -110,7 +108,6 @@
             this.binLAN.TabIndex = 4;
             this.binLAN.Text = "LAN";
             this.binLAN.UseVisualStyleBackColor = true;
-            this.binLAN.Click += new System.EventHandler(this.binLAN_Click);
             // 
             // txbIP
             // 
