@@ -135,7 +135,7 @@ namespace GameCaro
 
         private bool isEndGame (Button btn)
         {
-            return isEndGameHorizontal(btn)||isEndGamePrimary(btn)||isEndGamePrimary(btn)||isEndSub(btn);
+            return isEndHorizontal(btn)||isEndVerical(btn)||isEndPrimary(btn)||isEndSub(btn);
         }
 
         private Point GetChessPoint(Button btn)
@@ -148,7 +148,9 @@ namespace GameCaro
 
 			return point;
         }
-		private bool isEndGameHorizontal(Button btn)
+
+        //kiem tra hang ngang
+		private bool isEndHorizontal(Button btn)
 		{
             Point point = GetChessPoint(btn);
 
@@ -176,11 +178,37 @@ namespace GameCaro
 
             return countLeft + countRight == 5;
         }
-		private bool isEndGameVerical(Button btn)
+
+        //hàng dọc
+		private bool isEndVerical(Button btn)
 		{
-			return false;
+			Point point = GetChessPoint(btn);
+
+			int countTop = 0;
+			for (int i = point.Y; i >= 0; i--)
+			{
+				if (Matrix[i][point.X].BackgroundImage == btn.BackgroundImage)
+				{
+					countTop++;
+				}
+				else
+					break;
+			}
+
+			int countBottom = 0;
+			for (int i = point.Y + 1; i < Cons.CHEST_BOARD_HEIGHT; i++)
+			{
+				if (Matrix[i][point.X].BackgroundImage == btn.BackgroundImage)
+				{
+					countBottom++;
+				}
+				else
+					break;
+			}
+
+			return countTop + countBottom == 5;
 		}
-		private bool isEndGamePrimary(Button btn)
+		private bool isEndPrimary(Button btn)
 		{
 			return false;
 		}
