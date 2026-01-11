@@ -33,8 +33,6 @@ namespace GameCaro
             //ChessBoard.DrawChessBoard();
 
             NewGame();
-
-
         }
 
         void EndGame()
@@ -62,8 +60,6 @@ namespace GameCaro
 			tmCoolDown.Stop();
 
 			ChessBoard.DrawChessBoard();
-
-           
 		}
 
 		void Quit()
@@ -116,9 +112,6 @@ namespace GameCaro
 			}
 			// Nếu người dùng nhấn OK, form sẽ đóng bình thường
 		}
-
 		#endregion
-
-
 	}
 }

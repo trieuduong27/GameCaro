@@ -92,12 +92,12 @@ namespace GameCaro
         #region Initialize
         public ChessBoardManager(Panel chessBoard, TextBox playerName, PictureBox mark)
         {
-            //thêm tính năng cho phép thay đôi ten người chơi
+            //thêm tính năng cho phép thay đổi ten người chơi
             this.ChessBoard = chessBoard;
             this.PlayerName = playerName;
             this.PlayerMark = mark;
 
-            this.Player = new List<Player>() // phat trien tinh nhan cho phep them nguoi choi, cho phep thay doi ki tu nguoi choi
+            this.Player = new List<Player>() // phat trien tinh nang cho phep them nguoi choi, cho phep thay doi ki tu nguoi choi
             {
                 new Player("Người chơi O", Image.FromFile((Application.StartupPath+ "\\Resources\\O_caro1.png"))),
                 new Player("Người chơi X" , Image.FromFile((Application.StartupPath+ "\\Resources\\X_caro1.png")))
@@ -132,7 +132,7 @@ namespace GameCaro
                         Height = Cons.CHESS_HEIGHT,
                         Location = new Point(oldButton.Location.X + oldButton.Width, oldButton.Location.Y),
                         BackgroundImageLayout = ImageLayout.Stretch, // fit ảnh
-                        //luwuw texxt
+                        //Lưu text
                         Tag = i.ToString()
                     };
 
@@ -250,7 +250,7 @@ namespace GameCaro
 
 			return countTop + countBottom >= 5;
 		}
-        //hàng cheod
+        //hàng chéo chính
         private bool isEndPrimary(Button btn)
         {
             Point point = GetChessPoint(btn);
@@ -274,6 +274,7 @@ namespace GameCaro
             {
                 if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X + i >= Cons.CHEST_BOARD_WIDTH) //kiem tra có tràn khỏi mảng
                     break;
+                
                 if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
                 {
                     countBottom++;
@@ -284,13 +285,13 @@ namespace GameCaro
 
             return countTop + countBottom == 5;
         }
-        //cheophu
+        //cheo phụ
         private bool isEndSub(Button btn)
         {
             Point point = GetChessPoint(btn);
 
             int countTop = 0;
-            for (int i = 0; i <= point.X; i++)
+            for (int i = 0; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
             {
                 if (point.X + i > Cons.CHEST_BOARD_WIDTH || point.Y - i < 0) //kiem tra có tràn khỏi mảng
                     break;
@@ -304,10 +305,11 @@ namespace GameCaro
             }
 
             int countBottom = 0;
-            for (int i = 1; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
+            for (int i = 1; i <= point.X; i++)
             {
                 if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X - i < 0) //kiem tra có tràn khỏi mảng
                     break;
+                
                 if (Matrix[point.Y + i][point.X - i].BackgroundImage == btn.BackgroundImage)
                 {
                     countBottom++;
@@ -316,9 +318,8 @@ namespace GameCaro
                     break;
             }
 
-            return countTop + countBottom == 5;
+            return countTop + countBottom >= 5;
         }
-
 
         // đổi ảnh X vs O theo player
         private void Mark(Button btn)
