@@ -155,7 +155,7 @@ namespace GameCaro
             Point point = GetChessPoint(btn);
 
             int countLeft = 0;
-            for (int i = point.X; i > 0; i--)
+            for (int i = point.X; i >= 0; i--)
             {
                 if (Matrix[point.Y][i].BackgroundImage == btn.BackgroundImage)
                 {
@@ -250,7 +250,7 @@ namespace GameCaro
 			int countTop = 0;
 			for (int i = 0; i <= point.X; i++)
 			{
-				if (point.X - i > Cons.CHEST_BOARD_WIDTH || point.Y - i < 0) //kiem tra có tràn khỏi mảng
+				if (point.X + i > Cons.CHEST_BOARD_WIDTH || point.Y - i < 0) //kiem tra có tràn khỏi mảng
 					break;
 
 				if (Matrix[point.Y - i][point.X + i].BackgroundImage == btn.BackgroundImage)
@@ -264,7 +264,7 @@ namespace GameCaro
 			int countBottom = 0;
 			for (int i = 1; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
 			{
-				if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X + i < 0) //kiem tra có tràn khỏi mảng
+				if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X - i < 0) //kiem tra có tràn khỏi mảng
 					break;
 				if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
 				{
