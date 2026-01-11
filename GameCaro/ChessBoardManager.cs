@@ -266,7 +266,7 @@ namespace GameCaro
 			{
 				if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X - i < 0) //kiem tra có tràn khỏi mảng
 					break;
-				if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
+				if (Matrix[point.Y + i][point.X - i].BackgroundImage == btn.BackgroundImage)
 				{
 					countBottom++;
 				}
