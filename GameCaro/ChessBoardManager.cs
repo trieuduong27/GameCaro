@@ -245,7 +245,7 @@ namespace GameCaro
 
 			return countTop + countBottom >= 5;
 		}
-        // hàng chéo
+        //hàng cheod
         private bool isEndPrimary(Button btn)
         {
             Point point = GetChessPoint(btn);
@@ -277,16 +277,15 @@ namespace GameCaro
                     break;
             }
 
-            return countTop + countBottom >= 5;
+            return countTop + countBottom == 5;
         }
-        
-        // chéo phụ
+        //cheophu
         private bool isEndSub(Button btn)
         {
             Point point = GetChessPoint(btn);
 
             int countTop = 0;
-            for (int i = 0; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
+            for (int i = 0; i <= point.X; i++)
             {
                 if (point.X + i > Cons.CHEST_BOARD_WIDTH || point.Y - i < 0) //kiem tra có tràn khỏi mảng
                     break;
@@ -312,8 +311,9 @@ namespace GameCaro
                     break;
             }
 
-            return countTop + countBottom >= 5;
+            return countTop + countBottom == 5;
         }
+
 
         // đổi ảnh X vs O theo player
         private void Mark(Button btn)
