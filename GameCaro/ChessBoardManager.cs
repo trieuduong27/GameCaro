@@ -42,12 +42,10 @@ namespace GameCaro
         }
 
         private TextBox playerName;
-
-        private TextBox playerName1;
         public TextBox PlayerName
         {
-            get => playerName1;
-            set => playerName1 = value;
+            get => playerName;
+            set => playerName = value;
         }
 
         private PictureBox playerMark;
@@ -56,8 +54,39 @@ namespace GameCaro
             get => playerMark;
             set => playerMark = value;
         }
-        private List<List<Button>> Matrix;
 
+        private List<List<Button>> Matrix;
+        //public List<List<Button>> Matrix
+        //{
+        //    get => matrix;
+        //    set => matrix = value;
+        //}
+
+        private event EventHandler playerMarked;
+        public event EventHandler PlayerMarked
+        {
+            add
+            {
+                playerMarked += value;
+            }
+            remove
+            {
+                playerMarked -= value;
+            }
+        }
+
+        private event EventHandler endedGame;
+        public event EventHandler EndedGame
+        {
+            add
+            {
+                endedGame += value;
+            }
+            remove
+            {
+                endedGame -= value;
+            }
+        }
         #endregion
 
         #region Initialize
@@ -83,6 +112,8 @@ namespace GameCaro
         #region Methods
         public void DrawChessBoard()
         {
+            ChessBoard.Enabled = true;
+
             Matrix = new List<List<Button>>();
             Button oldButton = new Button() { Width = 0, Location = new Point(0, 0) };
             for (int i = 0; i < Cons.CHEST_BOARD_HEIGHT; i++)
@@ -119,25 +150,31 @@ namespace GameCaro
             // ktra neu ton tai thi khong can doi bg
             if (btn.BackgroundImage != null)
                 return;
+            
             Mark(btn);
 
             ChangePlayer();
+
+            if (playerMarked != null)
+                playerMarked(this, new EventArgs());
+
             if (isEndGame(btn))
             {
 
                 EndGame();
             }
         }
-        private void EndGame()
+        public void EndGame()
         {
-            MessageBox.Show("Ket thuc game");
+            if (endedGame !=  null)
+                endedGame(this, new EventArgs());
         }
 
         private bool isEndGame (Button btn)
         {
             return isEndHorizontal(btn)||isEndVerical(btn)||isEndPrimary(btn)||isEndSub(btn);
         }
-        //lay tọa độ burtton 
+        // lấy tọa độ burtton 
         private Point GetChessPoint(Button btn)
         {
            
@@ -149,13 +186,13 @@ namespace GameCaro
 			return point;
         }
 
-        //kiem tra hang ngang
+        // kiểm tra hàng ngang
 		private bool isEndHorizontal(Button btn)
 		{
             Point point = GetChessPoint(btn);
 
             int countLeft = 0;
-            for (int i = point.X; i > 0; i--)
+            for (int i = point.X; i >= 0; i--)
             {
                 if (Matrix[point.Y][i].BackgroundImage == btn.BackgroundImage)
                 {
@@ -179,7 +216,7 @@ namespace GameCaro
             return countLeft + countRight == 5;
         }
 
-        //hàng dọc
+        // hàng dọc
 		private bool isEndVerical(Button btn)
 		{
 			Point point = GetChessPoint(btn);
@@ -206,80 +243,80 @@ namespace GameCaro
 					break;
 			}
 
-			return countTop + countBottom == 5;
+			return countTop + countBottom >= 5;
 		}
-        //hàng cheod
-		private bool isEndPrimary(Button btn)
-		{
-			Point point = GetChessPoint(btn);
+        // hàng chéo
+        private bool isEndPrimary(Button btn)
+        {
+            Point point = GetChessPoint(btn);
 
-			int countTop = 0;
-			for (int i = 0 ; i <= point.X; i++)
-			{
+            int countTop = 0;
+            for (int i = 0; i <= point.X; i++)
+            {
                 if (point.X - i < 0 || point.Y - i < 0) //kiem tra có tràn khỏi mảng
                     break;
 
-				if (Matrix[point.Y-i][point.X-i].BackgroundImage == btn.BackgroundImage)
-				{
-					countTop++;
-				}
-				else
-					break;
-			}
-
-			int countBottom = 0;
-			for (int i = 1 ; i <= Cons.CHEST_BOARD_WIDTH - point.X ; i++)
-			{
-                if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X+ i >= Cons.CHEST_BOARD_WIDTH) //kiem tra có tràn khỏi mảng
+                if (Matrix[point.Y - i][point.X - i].BackgroundImage == btn.BackgroundImage)
+                {
+                    countTop++;
+                }
+                else
                     break;
-				if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
-				{
-					countBottom++;
-				}
-				else
-					break;
-			}
+            }
 
-			return countTop + countBottom == 5;
-		}
-        //cheophu
-		private bool isEndSub(Button btn)
-		{
-			Point point = GetChessPoint(btn);
+            int countBottom = 0;
+            for (int i = 1; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
+            {
+                if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X + i >= Cons.CHEST_BOARD_WIDTH) //kiem tra có tràn khỏi mảng
+                    break;
+                if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
+                {
+                    countBottom++;
+                }
+                else
+                    break;
+            }
 
-			int countTop = 0;
-			for (int i = 0; i <= point.X; i++)
-			{
-				if (point.X - i > Cons.CHEST_BOARD_WIDTH || point.Y - i < 0) //kiem tra có tràn khỏi mảng
-					break;
+            return countTop + countBottom >= 5;
+        }
+        
+        // chéo phụ
+        private bool isEndSub(Button btn)
+        {
+            Point point = GetChessPoint(btn);
 
-				if (Matrix[point.Y - i][point.X + i].BackgroundImage == btn.BackgroundImage)
-				{
-					countTop++;
-				}
-				else
-					break;
-			}
+            int countTop = 0;
+            for (int i = 0; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
+            {
+                if (point.X + i > Cons.CHEST_BOARD_WIDTH || point.Y - i < 0) //kiem tra có tràn khỏi mảng
+                    break;
 
-			int countBottom = 0;
-			for (int i = 1; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
-			{
-				if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X + i < 0) //kiem tra có tràn khỏi mảng
-					break;
-				if (Matrix[point.Y + i][point.X + i].BackgroundImage == btn.BackgroundImage)
-				{
-					countBottom++;
-				}
-				else
-					break;
-			}
+                if (Matrix[point.Y - i][point.X + i].BackgroundImage == btn.BackgroundImage)
+                {
+                    countTop++;
+                }
+                else
+                    break;
+            }
 
-			return countTop + countBottom == 5;
-		}
+            int countBottom = 0;
+            for (int i = 1; i <= Cons.CHEST_BOARD_WIDTH - point.X; i++)
+            {
+                if (point.Y + i >= Cons.CHEST_BOARD_HEIGHT || point.X - i < 0) //kiem tra có tràn khỏi mảng
+                    break;
+                if (Matrix[point.Y + i][point.X - i].BackgroundImage == btn.BackgroundImage)
+                {
+                    countBottom++;
+                }
+                else
+                    break;
+            }
 
+            return countTop + countBottom >= 5;
+        }
 
-		// đổi ảnh X vs O theo player
-		private void Mark(Button btn)
+        // đổi ảnh X vs O theo player
+        private void Mark(Button btn)
         {
             btn.BackgroundImage = Player[CurrenPlayer].Mark;
 
@@ -292,8 +329,5 @@ namespace GameCaro
             PlayerMark.Image = Player[currenPlayer].Mark;
         }
         #endregion
-
-
-
     }
 }

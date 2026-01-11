@@ -14,5 +14,9 @@ namespace GameCaro
         // kich thuoc ban co
         public static int CHEST_BOARD_WIDTH = 20;
         public static int CHEST_BOARD_HEIGHT = 17;
+        // thuoc tinh timer
+        public static int COOL_DOWN_STEP = 100;
+        public static int COOL_DOWN_TIME = 10000; //10s 
+        public static int COOL_DOWN_INTERVAL = 100;
     }
 }
