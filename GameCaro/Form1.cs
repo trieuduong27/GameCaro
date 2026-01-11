@@ -14,6 +14,8 @@ namespace GameCaro
     {
         #region Properties
         ChessBoardManager ChessBoard;
+
+        public MessageBoxButtons MessageBoxButton { get; private set; }
         #endregion
         public Form1()
         {
@@ -28,7 +30,9 @@ namespace GameCaro
 
             tmCoolDown.Interval = Cons.COOL_DOWN_INTERVAL;
 
-            ChessBoard.DrawChessBoard();
+            //ChessBoard.DrawChessBoard();
+
+            NewGame();
 
 
         }
@@ -51,6 +55,24 @@ namespace GameCaro
             EndGame();
         }
 
+		#region Methods
+		void NewGame() {
+
+			prcbCoolDown.Value = 0;
+			tmCoolDown.Stop();
+
+			ChessBoard.DrawChessBoard();
+
+           
+		}
+
+		void Quit()
+        {
+			Application.Exit();
+
+		}
+		void Undo() { }
+
         private void tmCoolDown_Tick(object sender, EventArgs e)
         {
             prcbCoolDown.PerformStep();
@@ -60,5 +82,43 @@ namespace GameCaro
                 EndGame();
             }
         }
-    }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewGame();
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Undo();
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Quit();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+		}
+		private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
+		{
+			// Hiển thị hộp thoại xác nhận thoát
+			if (MessageBox.Show("Bạn có chắc muốn thoát?", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+			{
+				e.Cancel = true; // Hủy việc đóng form
+			}
+			// Nếu người dùng nhấn OK, form sẽ đóng bình thường
+		}
+
+		#endregion
+
+
+	}
 }

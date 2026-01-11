@@ -103,9 +103,6 @@ namespace GameCaro
                 new Player("Người chơi X" , Image.FromFile((Application.StartupPath+ "\\Resources\\X_caro1.png")))
 
             };
-            currenPlayer = 0;
-
-            ChangePlayer();
         }
         #endregion
 
@@ -114,11 +111,19 @@ namespace GameCaro
         {
             ChessBoard.Enabled = true;
 
-            Matrix = new List<List<Button>>();
+            ChessBoard.Controls.Clear();
+
+			currenPlayer = 0;
+
+			ChangePlayer();
+
+			Matrix = new List<List<Button>>();
+
             Button oldButton = new Button() { Width = 0, Location = new Point(0, 0) };
             for (int i = 0; i < Cons.CHEST_BOARD_HEIGHT; i++)
             {
                 Matrix.Add(new List<Button>());
+
                 for (int j = 0; j < Cons.CHEST_BOARD_WIDTH; j++)
                 {
                     Button btn = new Button()
