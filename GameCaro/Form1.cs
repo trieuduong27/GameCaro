@@ -39,7 +39,8 @@ namespace GameCaro
         {
             tmCoolDown.Stop();
             pnlChessBoard.Enabled = false;
-            MessageBox.Show("Kết thúc");
+            undoToolStripMenuItem.Enabled = false;
+			MessageBox.Show("Kết thúc game");
         }
 
         void ChessBoard_PlayerMarked(object sender, EventArgs e)
@@ -58,6 +59,7 @@ namespace GameCaro
 
 			prcbCoolDown.Value = 0;
 			tmCoolDown.Stop();
+			undoToolStripMenuItem.Enabled = true;
 
 			ChessBoard.DrawChessBoard();
 		}
@@ -67,7 +69,10 @@ namespace GameCaro
 			Application.Exit();
 
 		}
-		void Undo() { }
+		void Undo() {
+            ChessBoard.Undo();
+
+        }
 
         private void tmCoolDown_Tick(object sender, EventArgs e)
         {

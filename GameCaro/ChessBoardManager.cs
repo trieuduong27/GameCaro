@@ -87,10 +87,13 @@ namespace GameCaro
                 endedGame -= value;
             }
         }
-        #endregion
+        private Stack<Playinfo> playTimeLine;
+		public Stack<Playinfo> PlayTimeLine { get => playTimeLine; set => playTimeLine = value; }
 
-        #region Initialize
-        public ChessBoardManager(Panel chessBoard, TextBox playerName, PictureBox mark)
+		#endregion
+
+		#region Initialize
+		public ChessBoardManager(Panel chessBoard, TextBox playerName, PictureBox mark)
         {
             //thêm tính năng cho phép thay đổi ten người chơi
             this.ChessBoard = chessBoard;
@@ -99,19 +102,23 @@ namespace GameCaro
 
             this.Player = new List<Player>() // phat trien tinh nang cho phep them nguoi choi, cho phep thay doi ki tu nguoi choi
             {
-                new Player("Người chơi O", Image.FromFile((Application.StartupPath+ "\\Resources\\O_caro1.png"))),
-                new Player("Người chơi X" , Image.FromFile((Application.StartupPath+ "\\Resources\\X_caro1.png")))
+				  new Player("Người chơi X" , Image.FromFile((Application.StartupPath+ "\\Resources\\X_caro1.png"))),
+
+				  new Player("Người chơi O", Image.FromFile((Application.StartupPath+ "\\Resources\\O_caro1.png")))
+              
 
             };
-        }
+         
+		}
         #endregion
 
         #region Methods
         public void DrawChessBoard()
         {
             ChessBoard.Enabled = true;
-
             ChessBoard.Controls.Clear();
+
+			PlayTimeLine = new Stack<Playinfo>();
 
 			currenPlayer = 0;
 
@@ -158,7 +165,11 @@ namespace GameCaro
             
             Mark(btn);
 
-            ChangePlayer();
+            PlayTimeLine.Push(new Playinfo(GetChessPoint(btn), CurrenPlayer));
+
+			currenPlayer = currenPlayer == 1 ? 0 : 1;
+
+			ChangePlayer();
 
             if (playerMarked != null)
                 playerMarked(this, new EventArgs());
@@ -175,7 +186,35 @@ namespace GameCaro
                 endedGame(this, new EventArgs());
         }
 
-        private bool isEndGame (Button btn)
+
+        public bool Undo()
+        {
+
+            if (PlayTimeLine.Count <= 0)
+            {
+                return false;
+            }
+            Playinfo oldPoint = PlayTimeLine.Pop();
+			Button btn = Matrix[oldPoint.Point.Y][oldPoint.Point.X];
+
+            btn.BackgroundImage = null;
+
+
+            if (PlayTimeLine.Count <= 0)
+            {
+                
+                CurrenPlayer = 0;
+            }
+            else
+            {
+				oldPoint = PlayTimeLine.Peek();
+				CurrenPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
+            }
+			ChangePlayer();
+
+			return true;
+		}
+		private bool isEndGame (Button btn)
         {
             return isEndHorizontal(btn)||isEndVerical(btn)||isEndPrimary(btn)||isEndSub(btn);
         }
@@ -218,7 +257,7 @@ namespace GameCaro
                     break;
             }
 
-            return countLeft + countRight == 5;
+            return countLeft + countRight >= 5;
         }
 
         // hàng dọc
@@ -326,7 +365,7 @@ namespace GameCaro
         {
             btn.BackgroundImage = Player[CurrenPlayer].Mark;
 
-            currenPlayer = currenPlayer == 1 ? 0 : 1;
+           
         }
         private void ChangePlayer()
         {
