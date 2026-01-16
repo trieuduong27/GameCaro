@@ -122,7 +122,7 @@ namespace GameCaro
 			}
 			// Nếu người dùng nhấn OK, form sẽ đóng bình thường
 		}
-
+    
         private void binLAN_Click(object sender, EventArgs e)
         {
             socket.IP = txbIP.Text;
@@ -159,7 +159,7 @@ namespace GameCaro
                 listenThread.IsBackground = true;
                 listenThread.Start();
 
-                socket.Send("Thông tin từ Clinet");
+                socket.Send("Thông tin từ Chient, đã kết nối thành công");
             }
         }
 
