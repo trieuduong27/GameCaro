@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,6 +17,7 @@ namespace GameCaro
         #region Properties
         ChessBoardManager ChessBoard;
 
+        SocketManager socket;
         public MessageBoxButtons MessageBoxButton { get; private set; }
         #endregion
         public Form1()
@@ -29,6 +32,8 @@ namespace GameCaro
             prcbCoolDown.Value = 0;
 
             tmCoolDown.Interval = Cons.COOL_DOWN_INTERVAL;
+
+            socket = new SocketManager();
 
             //ChessBoard.DrawChessBoard();
 
@@ -117,6 +122,64 @@ namespace GameCaro
 			}
 			// Nếu người dùng nhấn OK, form sẽ đóng bình thường
 		}
-		#endregion
-	}
+
+        private void binLAN_Click(object sender, EventArgs e)
+        {
+            socket.IP = txbIP.Text;
+
+            if (!socket.ConnectServer())
+            {
+                socket.CreateServer();
+
+                Thread listenThread = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        Thread.Sleep(500);
+                        try
+                        {
+                            listen();
+                            break;
+                        }
+                        catch 
+                        {
+
+                        }
+                    }
+                });
+                listenThread.IsBackground = true;
+                listenThread.Start();
+            }
+            else
+            {
+                Thread listenThread = new Thread(() =>
+                {
+                    listen();
+                });
+                listenThread.IsBackground = true;
+                listenThread.Start();
+
+                socket.Send("Thông tin từ Clinet");
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            txbIP.Text = socket.GetLocalIPv4(NetworkInterfaceType.Wireless80211);
+
+            if (string.IsNullOrEmpty(txbIP.Text))
+            {
+                txbIP.Text = socket.GetLocalIPv4(NetworkInterfaceType.Ethernet);
+            }
+        }
+
+        void listen()
+        {
+            string data = (string)socket.Receive();
+
+            MessageBox.Show(data);
+        }
+
+        #endregion
+    }
 }

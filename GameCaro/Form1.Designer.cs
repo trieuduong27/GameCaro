@@ -58,7 +58,7 @@
             this.pnlChessBoard.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.pnlChessBoard.Location = new System.Drawing.Point(11, 44);
             this.pnlChessBoard.Name = "pnlChessBoard";
-            this.pnlChessBoard.Size = new System.Drawing.Size(815, 630);
+            this.pnlChessBoard.Size = new System.Drawing.Size(806, 630);
             this.pnlChessBoard.TabIndex = 0;
             // 
             // panel2
@@ -66,7 +66,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.pctbAvatar);
-            this.panel2.Location = new System.Drawing.Point(858, 44);
+            this.panel2.Location = new System.Drawing.Point(864, 44);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(269, 476);
             this.panel2.TabIndex = 1;
@@ -92,7 +92,7 @@
             this.panel3.Controls.Add(this.pctbMark);
             this.panel3.Controls.Add(this.prcbCoolDown);
             this.panel3.Controls.Add(this.txbPlayerName);
-            this.panel3.Location = new System.Drawing.Point(858, 319);
+            this.panel3.Location = new System.Drawing.Point(864, 319);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(269, 247);
             this.panel3.TabIndex = 2;
@@ -115,6 +115,7 @@
             this.binLAN.TabIndex = 4;
             this.binLAN.Text = "LAN";
             this.binLAN.UseVisualStyleBackColor = true;
+            this.binLAN.Click += new System.EventHandler(this.binLAN_Click);
             // 
             // txbIP
             // 
@@ -161,7 +162,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(1139, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(1145, 26);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -203,7 +204,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1139, 696);
+            this.ClientSize = new System.Drawing.Size(1145, 696);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnlChessBoard);
@@ -214,6 +215,7 @@
             this.Text = "Game Caro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing_1);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pctbAvatar)).EndInit();
             this.panel3.ResumeLayout(false);
