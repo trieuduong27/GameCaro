@@ -45,7 +45,7 @@ namespace GameCaro
             tmCoolDown.Stop();
             pnlChessBoard.Enabled = false;
             undoToolStripMenuItem.Enabled = false;
-			MessageBox.Show("Kết thúc game");
+            MessageBox.Show("Kết thúc game");
         }
 
         void ChessBoard_PlayerMarked(object sender, EventArgs e)
@@ -59,22 +59,24 @@ namespace GameCaro
             EndGame();
         }
 
-		#region Methods
-		void NewGame() {
-
-			prcbCoolDown.Value = 0;
-			tmCoolDown.Stop();
-			undoToolStripMenuItem.Enabled = true;
-
-			ChessBoard.DrawChessBoard();
-		}
-
-		void Quit()
+        #region Methods
+        void NewGame()
         {
-			Application.Exit();
 
-		}
-		void Undo() {
+            prcbCoolDown.Value = 0;
+            tmCoolDown.Stop();
+            undoToolStripMenuItem.Enabled = true;
+
+            ChessBoard.DrawChessBoard();
+        }
+
+        void Quit()
+        {
+            Application.Exit();
+
+        }
+        void Undo()
+        {
             ChessBoard.Undo();
 
         }
@@ -112,17 +114,17 @@ namespace GameCaro
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
 
-		}
-		private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
-		{
-			// Hiển thị hộp thoại xác nhận thoát
-			if (MessageBox.Show("Bạn có chắc muốn thoát?", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
-			{
-				e.Cancel = true; // Hủy việc đóng form
-			}
-			// Nếu người dùng nhấn OK, form sẽ đóng bình thường
-		}
-    
+        }
+        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            // Hiển thị hộp thoại xác nhận thoát
+            if (MessageBox.Show("Bạn có chắc muốn thoát?", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            {
+                e.Cancel = true; // Hủy việc đóng form
+            }
+            // Nếu người dùng nhấn OK, form sẽ đóng bình thường
+        }
+
         private void binLAN_Click(object sender, EventArgs e)
         {
             socket.IP = txbIP.Text;
@@ -141,7 +143,7 @@ namespace GameCaro
                             listen();
                             break;
                         }
-                        catch 
+                        catch
                         {
 
                         }

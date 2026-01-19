@@ -25,8 +25,8 @@ namespace GameCaro
             {
                 clinet.Connect(iep);
                 return true;
-            } 
-            catch 
+            }
+            catch
             {
                 return false;
             }
@@ -43,11 +43,11 @@ namespace GameCaro
 
             server.Bind(iep);
             server.Listen(10);
-            
+
             Thread acceptClient = new Thread(() =>
             {
                 clinet = server.Accept();
-            } );
+            });
             acceptClient.IsBackground = true;
             acceptClient.Start();
         }
@@ -62,7 +62,7 @@ namespace GameCaro
         public bool Send(object data)
         {
             byte[] sendData = SerializeData(data);
-            
+
             return SendData(clinet, sendData);
         }
 
