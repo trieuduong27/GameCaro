@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Media;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -211,27 +212,40 @@ namespace GameCaro
 
         public bool Undo()
         {
+			if (PlayTimeLine.Count <= 0)
+			{
+				return false;
+			}
+			bool isUndo1 = UndoAstep();
+            bool isUndo2 = UndoAstep();
 
-            if (PlayTimeLine.Count <= 0)
-            {
-                return false;
-            }
-            Playinfo oldPoint = PlayTimeLine.Pop();
+			Playinfo oldPoint = PlayTimeLine.Peek();
+			CurrenPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
+
+			return isUndo1 && isUndo2;
+		}
+
+        private bool UndoAstep() {
+			if (PlayTimeLine.Count <= 0)
+			{
+				return false;
+			}
+			Playinfo oldPoint = PlayTimeLine.Pop();
 			Button btn = Matrix[oldPoint.Point.Y][oldPoint.Point.X];
 
-            btn.BackgroundImage = null;
+			btn.BackgroundImage = null;
 
 
-            if (PlayTimeLine.Count <= 0)
-            {
-                
-                CurrenPlayer = 0;
-            }
-            else
-            {
+			if (PlayTimeLine.Count <= 0)
+			{
+
+				CurrenPlayer = 0;
+			}
+			else
+			{
 				oldPoint = PlayTimeLine.Peek();
-				CurrenPlayer = oldPoint.CurrentPlayer == 1 ? 0 : 1;
-            }
+				
+			}
 			ChangePlayer();
 
 			return true;
