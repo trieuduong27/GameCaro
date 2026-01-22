@@ -121,6 +121,7 @@ namespace GameCaro
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Undo();
+
 			socket.Send(new SocketData((int)SocketCommand.UNDO, "", new Point()));
 		}
 
